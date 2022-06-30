@@ -1,9 +1,10 @@
 
-const backgroundMusic = new Audio("sounds/background-music.mp3");
-const ambientSound = new Audio("sounds/ambient-sounds.mp3");
 
-//ambientSound.play();
-//backgroundMusic.play();
+const cardSound1 = new Audio('sounds/cardSlide1.wav');
+const cardSound2 = new Audio('sounds/cardSlide2.wav');
+const winSound = new Audio('sounds/win.wav');
+const loseSound = new Audio('sounds/lose.wav');
+
 
 const btnNew = $('.btn-new');
 const btnHit = $('.btn-hit');
@@ -53,6 +54,7 @@ function cardScore ( card, currentScore ) {
 }
 
 function cardDealer () {
+    cardSound2.play();
     card = deck.shift();
     $('.dealer').html($('.dealer').html() + `<img src="./cards/${card}.svg" alt="">`);
     dealerScore += cardScore(card, dealerScore);
@@ -60,40 +62,14 @@ function cardDealer () {
 }
 
 function cardPlayer () {
+    cardSound1.play();
     card = deck.shift();
     $('.player').html($('.player').html() + `<img src="./cards/${card}.svg" alt="">`);
     playerScore += cardScore(card, playerScore);
     $('.player-score').text(playerScore);
 }
 
-function newGame () {
-    // Reset cards and scores
-    $('.dealer').empty();
-    dealerScore = 0;
-    $('.dealer-score').text(dealerScore);
-    $('.player').empty();
-    playerScore = 0;
-    $('.player-score').text(playerScore);
 
-    // Initialize deck
-    deck = initDeck();
-
-    // Initialize dealer
-    cardDealer();
-    $('.dealer').html($('.dealer').html() + '<img class="0" src="./cards/0.svg" alt="">');
-    
-    // Initialize player
-    cardPlayer();
-    cardPlayer();
-    btnHit.attr('disabled',false);
-    btnStand.attr('disabled',false);
-
-    // Hide popup
-    $('.popup').addClass('hidden');
-
-}
-
-newGame();
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function dealerPlays() {
@@ -106,7 +82,7 @@ async function dealerPlays() {
             more = false;
             btnStand.attr('disabled',true);
         }
-        await sleep(1000);
+        await sleep(1200);
     }
 
     if ( dealerScore > 21 ) {
@@ -116,12 +92,45 @@ async function dealerPlays() {
     }
 }
 
+async function newGame () {
+    // Reset cards and scores
+    $('.dealer').empty();
+    dealerScore = 0;
+    $('.dealer-score').text(dealerScore);
+    $('.player').empty();
+    playerScore = 0;
+    $('.player-score').text(playerScore);
+
+    // Hide popup
+    $('.popup').addClass('hidden');
+
+    // Initialize deck
+    deck = initDeck();
+
+    // Initialize dealer
+    cardDealer();
+    $('.dealer').html($('.dealer').html() + '<img class="0" src="./cards/0.svg" alt="">');
+    await sleep(500);
+    // Initialize player
+    cardPlayer();
+    cardPlayer();
+    
+    btnHit.attr('disabled',false);
+    btnStand.attr('disabled',false);
+
+    
+
+}
+
+newGame();
+
 function youWin () {
     $('.popup').removeClass('hidden');
     $('.popup').css({"backgroundColor": "rgba(0,100,0,0.9)"});
     $('.message').text('You Won! 💃');
     playerWins++;
     $('.player-wins').text(playerWins);
+    winSound.play();
 }
 
 function youBust () {
@@ -130,6 +139,7 @@ function youBust () {
     $('.message').text('You Bust! ⛔');
     dealerWins++;
     $('.dealer-wins').text(dealerWins);
+    loseSound.play();
 }
 
 function houseWins () {
@@ -138,6 +148,7 @@ function houseWins () {
     $('.message').text('House Wins! 👎'); 
     dealerWins++;
     $('.dealer-wins').text(dealerWins);
+    loseSound.play();
 }
 
 
