@@ -1,3 +1,10 @@
+
+const backgroundMusic = new Audio("sounds/background-music.mp3");
+const ambientSound = new Audio("sounds/ambient-sounds.mp3");
+
+//ambientSound.play();
+//backgroundMusic.play();
+
 const btnNew = $('.btn-new');
 const btnHit = $('.btn-hit');
 const btnStand = $('.btn-stand');
@@ -41,7 +48,6 @@ function cardScore ( card, currentScore ) {
     }
 }
 
-
 function cardDealer () {
     card = deck.shift();
     $('.dealer').html($('.dealer').html() + `<img src="./cards/${card}.svg" alt="">`);
@@ -57,7 +63,7 @@ function cardPlayer () {
 }
 
 function newGame () {
-    // Reset All
+    // Reset cards and scores
     $('.dealer').empty();
     dealerScore = 0;
     $('.dealer-score').text(dealerScore);
@@ -68,13 +74,18 @@ function newGame () {
     // Initialize deck
     deck = initDeck();
 
+    // Initialize dealer
     cardDealer();
     $('.dealer').html($('.dealer').html() + '<img class="0" src="./cards/0.svg" alt="">');
     
+    // Initialize player
     cardPlayer();
     cardPlayer();
     btnHit.attr('disabled',false);
     btnStand.attr('disabled',false);
+
+    // Hide popup
+    $('.popup').addClass('hidden');
 
 }
 
@@ -92,30 +103,45 @@ async function dealerPlays() {
             btnStand.attr('disabled',true);
         }
         await sleep(1000);
-    }    
+    }
+
+    if ( dealerScore > 21 ) {
+        youWin();
+    } else if ( dealerScore >= playerScore ) {
+        houseWins();
+    }
+}
+
+function youWin () {
+    $('.popup').removeClass('hidden');
+    $('.popup').addClass('back-green');
+    $('.popup').text('You Win! 💃');
+}
+
+function youBust () {
+    $('.popup').removeClass('hidden');
+    $('.popup').addClass('back-red');
+    $('.popup').text('You Bust! ⛔');
+}
+
+function houseWins () {
+    $('.popup').removeClass('hidden');
+    $('.popup').addClass('back-red');
+    $('.popup').text('House Wins! 👎'); 
 }
 
 btnNew.click( function () {
     newGame();
 })
 
-function youWin () {
-    $('.message').removeClass('hidden');
-    $('.message').addClass('back-green');
-}
 
-function youBust () {
-
-}
-
-function houseWins () {
-
-}
 
 btnHit.click( function () {
     cardPlayer();
-    if ( playerScore >= 21 ) {
+    if ( playerScore > 21 ) {
         btnHit.attr('disabled',true);
+        btnStand.attr('disabled',true);
+        youBust();
     }
 })
 
@@ -127,6 +153,6 @@ btnHit.click( function () {
 btnStand.click( function () {
 
     dealerPlays();
-    youWin();
+
     
 })

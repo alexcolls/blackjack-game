@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Lucida Console", "Courier New", monospace;
 }
 
 body {
@@ -10,11 +11,9 @@ body {
 
 header {
   display: flex;
-  background-color: rgba(120, 120, 120, 0.8);
+  background-color: black;
   color: white;
-  //text-align: center;
   padding: 1rem;
-
   justify-content: space-between;
   align-items: center;
 }
@@ -33,9 +32,18 @@ img {
 }
 
 button {
-  width: 80px;
+  width: 100px;
   height: 30px;
   border-radius: 10px;
+  border: 1px solid white;
+  color: white;
+  background: black;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(130deg, black 30%, green);
 }
 
 .btns-game {
@@ -48,17 +56,6 @@ button {
   margin: 2rem;
 }
 
-.table {
-  display: block;
-  grid-template-columns: 1fr 1fr;
-  //border: 1px solid black;
-
-  justify-content: space-between;
-}
-
-@media (max-width: 600px) {
-}
-
 .layout {
   //border: 1px solid black;
   align-items: center;
@@ -69,13 +66,14 @@ button {
   display: none;
 }
 
-.message {
+.popup {
   position: absolute;
   left: 50%;
   top: 50%;
 
   transform: translate(-50%, -50%);
-  padding: 60px;
+  padding: 30px;
+  text-align: center;
 
   font-size: 30px;
   border-radius: 10px;
@@ -86,5 +84,5 @@ button {
 }
 
 .back-red {
-  background: red;
+  background: rgba(260, 0, 0, 80%);
 }

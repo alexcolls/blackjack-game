@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,46 +8,37 @@
     <link rel="stylesheet" href="styles.css">
     <title>BlackJack</title>
 </head>
-<body>
-    <header>
-        <div>BlackJack</div>
-        <button class="btn-new">New Game</button>
-        
-        
 
+<body>
+
+    <header>
+        <div>🃏 BlackJack</div>
+        <button class="btn-new">🔄 New Game</button>
     </header>
 
-    <div class="btns-game">
-        
-        <button class="btn-hit">Hit</button>
-        <button class="btn-stand">Stand</button>
+    <div class="layout">
+        <h2>Dealer: <span class="dealer-score">0</span></h2>
+        <div class="dealer">
+
+        </div>
     </div>
 
-    <section class="table">
-        <div class="layout">
-            <h2>Dealer <span class="dealer-score">0</span></h2>
-            <div class="dealer">
+    <div class="btns-game">
+    
+        <button class="btn-hit">🂱 Hit</button>
+        <button class="btn-stand">📥 Stand</button>
+    </div>
 
-            </div>
+    <div class="layout">
+        <h2>You: <span class="player-score">0</span></h2>
+        <div class="player">
+
         </div>
-        <div class="layout">
-            <h2>You <span class="player-score">0</span></h2>
-            <div class="player">
-                <img src="./cards/AC.svg" alt="">
-                <img src="./cards/AH.svg" alt="">
-                <img src="./cards/10D.svg" alt="">
-                <img src="./cards/AD.svg" alt="">
-            </div>
-        </div>
+    </div>
 
-        <div class="message hidden">
-            You won!
-        </div>
-
-        
-    </section>
-
-
+    <div class="popup hidden">
+        You won!
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="./index.js"></script>
