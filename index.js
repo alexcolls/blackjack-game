@@ -1,10 +1,7 @@
-
-
-const cardSound1 = new Audio('sounds/cardSlide1.wav');
-const cardSound2 = new Audio('sounds/cardSlide2.wav');
+const cardSound1 = new Audio('sounds/card1.wav');
+const cardSound2 = new Audio('sounds/card2.wav');
 const winSound = new Audio('sounds/win.wav');
 const loseSound = new Audio('sounds/lose.wav');
-
 
 const btnNew = $('.btn-new');
 const btnHit = $('.btn-hit');
@@ -35,19 +32,14 @@ function initDeck() {
 }
 
 let deck = initDeck();
-    
 
-function cardScore ( card, currentScore ) {
+function cardScore ( card ) {
     let value = card.slice(0,-1);
     const jqk = ['J','Q','K'];
     if ( jqk.includes(value) ) {
         return 10;
     } else if ( value === 'A' ) {
-        if ( currentScore + 11 > 21 ) {
-            return 1;
-        } else {
-            return 11;
-        }
+        return 11;
     } else {
         return Number(value);
     }
@@ -57,7 +49,15 @@ function cardDealer () {
     cardSound2.play();
     card = deck.shift();
     $('.dealer').html($('.dealer').html() + `<img src="./cards/${card}.svg" alt="">`);
-    dealerScore += cardScore(card, dealerScore);
+    score = cardScore(card);
+    if ( score === 11 ) {
+        dealerAces++;
+    }
+    dealerScore += cardScore(card);
+    if ( dealerScore > 21 && dealerAces > 0 ) {
+        dealerScore -= 10;
+        dealerAces--;
+    }
     $('.dealer-score').text(dealerScore);
 }
 
@@ -65,13 +65,22 @@ function cardPlayer () {
     cardSound1.play();
     card = deck.shift();
     $('.player').html($('.player').html() + `<img src="./cards/${card}.svg" alt="">`);
-    playerScore += cardScore(card, playerScore);
+    score = cardScore(card);
+    if ( score === 11 ) {
+        playerAces++;
+    }
+    playerScore += cardScore(card);
+    if ( playerScore > 21 && playerAces > 0 ) {
+        playerScore -= 10;
+        playerAces--;
+    }
     $('.player-score').text(playerScore);
 }
 
 
-
+// Sleep function to give suspends
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 async function dealerPlays() {
     btnHit.attr('disabled',true);
     $('.0').remove();
@@ -82,9 +91,8 @@ async function dealerPlays() {
             more = false;
             btnStand.attr('disabled',true);
         }
-        await sleep(1200);
+        await sleep(1000);
     }
-
     if ( dealerScore > 21 ) {
         youWin();
     } else if ( dealerScore >= playerScore ) {
@@ -96,9 +104,11 @@ async function newGame () {
     // Reset cards and scores
     $('.dealer').empty();
     dealerScore = 0;
+    dealerAces = 0;
     $('.dealer-score').text(dealerScore);
     $('.player').empty();
     playerScore = 0;
+    playerAces = 0;
     $('.player-score').text(playerScore);
 
     // Hide popup
@@ -117,8 +127,6 @@ async function newGame () {
     
     btnHit.attr('disabled',false);
     btnStand.attr('disabled',false);
-
-    
 
 }
 
@@ -145,38 +153,26 @@ function youBust () {
 function houseWins () {
     $('.popup').removeClass('hidden');
     $('.popup').css({"backgroundColor": "rgba(250,0,0,0.8)"});
-    $('.message').text('House Wins! 👎'); 
+    $('.message').text('House Wins! 😞'); 
     dealerWins++;
     $('.dealer-wins').text(dealerWins);
     loseSound.play();
 }
 
-
-
-
 btnNew.click( function () {
     newGame();
 })
 
-
-
-btnHit.click( function () {
+btnHit.click( async function () {
     cardPlayer();
     if ( playerScore > 21 ) {
         btnHit.attr('disabled',true);
         btnStand.attr('disabled',true);
+        await sleep(500);
         youBust();
     }
 })
 
-
-
-
-
-
 btnStand.click( function () {
-
-    dealerPlays();
-
-    
+    dealerPlays();    
 })
