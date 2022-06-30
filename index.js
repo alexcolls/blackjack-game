@@ -9,7 +9,11 @@ const btnNew = $('.btn-new');
 const btnHit = $('.btn-hit');
 const btnStand = $('.btn-stand');
 
+let dealerWins = 0;
+let playerWins = 0;
+
 let card;
+let score;
 let dealerScore = 0;
 let playerScore = 0;
 let dealerAces = 0;
@@ -34,8 +38,8 @@ let deck = initDeck();
 
 function cardScore ( card, currentScore ) {
     let value = card.slice(0,-1);
-    const ten = ['J','Q','K'];
-    if ( ten.includes(value) ) {
+    const jqk = ['J','Q','K'];
+    if ( jqk.includes(value) ) {
         return 10;
     } else if ( value === 'A' ) {
         if ( currentScore + 11 > 21 ) {
@@ -114,21 +118,30 @@ async function dealerPlays() {
 
 function youWin () {
     $('.popup').removeClass('hidden');
-    $('.popup').addClass('back-green');
-    $('.popup').text('You Win! 💃');
+    $('.popup').css({"backgroundColor": "rgba(0,100,0,0.9)"});
+    $('.message').text('You Won! 💃');
+    playerWins++;
+    $('.player-wins').text(playerWins);
 }
 
 function youBust () {
     $('.popup').removeClass('hidden');
-    $('.popup').addClass('back-red');
-    $('.popup').text('You Bust! ⛔');
+    $('.popup').css({"backgroundColor": "rgba(250,0,0,0.8)"});
+    $('.message').text('You Bust! ⛔');
+    dealerWins++;
+    $('.dealer-wins').text(dealerWins);
 }
 
 function houseWins () {
     $('.popup').removeClass('hidden');
-    $('.popup').addClass('back-red');
-    $('.popup').text('House Wins! 👎'); 
+    $('.popup').css({"backgroundColor": "rgba(250,0,0,0.8)"});
+    $('.message').text('House Wins! 👎'); 
+    dealerWins++;
+    $('.dealer-wins').text(dealerWins);
 }
+
+
+
 
 btnNew.click( function () {
     newGame();

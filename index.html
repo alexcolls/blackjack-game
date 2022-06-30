@@ -12,8 +12,10 @@
 <body>
 
     <header>
-        <div>🃏 BlackJack</div>
-        <button class="btn-new">🔄 New Game</button>
+        <a href="./">👽 BlackJack</a>
+    
+        <div><span class="dealer-wins">0</span><span> | </span><span class="player-wins">0</span></div>
+        
     </header>
 
     <div class="layout">
@@ -25,7 +27,7 @@
 
     <div class="btns-game">
     
-        <button class="btn-hit">🂱 Hit</button>
+        <button class="btn-hit">🎲 Hit</button>
         <button class="btn-stand">📥 Stand</button>
     </div>
 
@@ -36,8 +38,10 @@
         </div>
     </div>
 
-    <div class="popup hidden">
-        You won!
+    <div class="popup">
+        <div class="message"></div>
+        <button class="btn-new">🔄 New Game</button>
+    
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

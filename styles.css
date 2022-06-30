@@ -18,6 +18,11 @@ header {
   align-items: center;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
 h2 {
   padding: 1rem;
   margin-top: 1rem;
@@ -77,6 +82,12 @@ button:hover {
 
   font-size: 30px;
   border-radius: 10px;
+  border: 1px solid white;
+}
+
+.message {
+  margin-bottom: 15px;
+  color: white;
 }
 
 .back-green {
