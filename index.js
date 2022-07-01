@@ -5,12 +5,12 @@ const cardSound2 = new Audio('sounds/card2.wav');
 const winSound = new Audio('sounds/win.wav');
 const loseSound = new Audio('sounds/lose.wav');
 
-// De
+// Declare buttons
 const btnNew = $('.btn-new');
 const btnHit = $('.btn-hit');
 const btnStand = $('.btn-stand');
 
-// Declaring functions
+// Declare variables
 let card;
 let score;
 let dealerScore = 0;
@@ -19,6 +19,8 @@ let dealerAces = 0;
 let playerAces = 0;
 let dealerWins = 0;
 let playerWins = 0;
+
+// Functions
 
 function initDeck() {
     const cards = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
@@ -132,6 +134,7 @@ async function newGame () {
 newGame();
 
 // Messages
+
 function youWin () {
     $('.popup').removeClass('hidden');
     $('.popup').css({"backgroundColor": "rgba(0,100,0,0.9)"});
@@ -160,6 +163,7 @@ function houseWins () {
 }
 
 // Button actions
+
 btnNew.click( function () {
     newGame();
 })
@@ -177,3 +181,5 @@ btnHit.click( async function () {
 btnStand.click( function () {
     dealerPlays();    
 })
+
+// End 
