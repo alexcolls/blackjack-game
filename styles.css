@@ -62,7 +62,6 @@ button:hover {
 }
 
 .layout {
-  //border: 1px solid black;
   align-items: center;
   text-align: center;
 }
@@ -75,12 +74,9 @@ button:hover {
   position: absolute;
   left: 50%;
   top: 50%;
-
   transform: translate(-50%, -50%);
   padding: 30px;
   text-align: center;
-
-  font-size: 30px;
   border-radius: 10px;
   border: 1px solid white;
 }
@@ -88,12 +84,5 @@ button:hover {
 .message {
   margin-bottom: 15px;
   color: white;
-}
-
-.back-green {
-  background: #66ff99;
-}
-
-.back-red {
-  background: rgba(260, 0, 0, 80%);
+  font-size: 30px;
 }

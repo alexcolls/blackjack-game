@@ -1,21 +1,24 @@
+
+// Load sounds
 const cardSound1 = new Audio('sounds/card1.wav');
 const cardSound2 = new Audio('sounds/card2.wav');
 const winSound = new Audio('sounds/win.wav');
 const loseSound = new Audio('sounds/lose.wav');
 
+// De
 const btnNew = $('.btn-new');
 const btnHit = $('.btn-hit');
 const btnStand = $('.btn-stand');
 
-let dealerWins = 0;
-let playerWins = 0;
-
+// Declaring functions
 let card;
 let score;
 let dealerScore = 0;
 let playerScore = 0;
 let dealerAces = 0;
 let playerAces = 0;
+let dealerWins = 0;
+let playerWins = 0;
 
 function initDeck() {
     const cards = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
@@ -110,13 +113,10 @@ async function newGame () {
     playerScore = 0;
     playerAces = 0;
     $('.player-score').text(playerScore);
-
     // Hide popup
     $('.popup').addClass('hidden');
-
     // Initialize deck
     deck = initDeck();
-
     // Initialize dealer
     cardDealer();
     $('.dealer').html($('.dealer').html() + '<img class="0" src="./cards/0.svg" alt="">');
@@ -124,14 +124,14 @@ async function newGame () {
     // Initialize player
     cardPlayer();
     cardPlayer();
-    
+    // Activate buttons again
     btnHit.attr('disabled',false);
     btnStand.attr('disabled',false);
-
 }
 
 newGame();
 
+// Messages
 function youWin () {
     $('.popup').removeClass('hidden');
     $('.popup').css({"backgroundColor": "rgba(0,100,0,0.9)"});
@@ -159,6 +159,7 @@ function houseWins () {
     loseSound.play();
 }
 
+// Button actions
 btnNew.click( function () {
     newGame();
 })
